@@ -185,6 +185,8 @@ select.addEventListener("change", function (event) {
     renderProductList(filteredProducts);
   }
 
+  //создаем объект с данными поиска, если этот объект уже есть в ЛС, достаем оттуда, если еще нет - инициализируем пустым объектом
+  // в обработчике селекта добавляем в ЛС только значение категории, инпут либо пустой либо старый
   const storedSearchInput =
     JSON.parse(localStorage.getItem("searchInput")) || {};
   storedSearchInput.category = category;
@@ -198,6 +200,7 @@ inputProductName.addEventListener("change", function (event) {
   const filteredProducts = getFilteredProducts(category, productNameValue);
   renderProductList(filteredProducts);
 
+  // поторяем шаг с обработчиком событий как и в селекте. вытаскиваем объект из ЛС или создаем новый, добавляем ключ инпута
   const storedSearchInput =
     JSON.parse(localStorage.getItem("searchInput")) || {};
   storedSearchInput.name = productNameValue;
@@ -206,6 +209,7 @@ inputProductName.addEventListener("change", function (event) {
 
 // // 6
 
+// при загрузке страницы достаем объект из ЛС, если он не null то парсим данные и подставляем в инпуты, вызываем фильтр и рендерим продукты согласно отфильтрованному массиву
 document.addEventListener("DOMContentLoaded", function () {
   const storedSearchInput = localStorage.getItem("searchInput");
   if (storedSearchInput !== null) {
@@ -225,6 +229,7 @@ clearFilterBtn.classList.add("clearFilterBtn");
 clearFilterBtn.innerText = "Clear";
 mainContainer.append(clearFilterBtn);
 
+// очищаем ЛС, инпуты, рендерим все продукты
 clearFilterBtn.addEventListener("click", function () {
   localStorage.removeItem("searchInput");
   inputProductName.value = ""; 
